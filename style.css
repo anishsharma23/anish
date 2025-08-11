@@ -30,6 +30,12 @@ body {
   color: var(--text-light);
   line-height: 1.6;
   overflow-x: hidden;
+  user-select: none;               /* Modern browsers */
+  -webkit-user-select: none;       /* Safari / Chrome */
+  -moz-user-select: none;          /* Firefox */
+  -ms-user-select: none;           /* IE/Edge */  
+  -webkit-tap-highlight-color: transparent; /* Remove mobile tap highlight */
+  touch-action: manipulation;
 }
 
 .container {
@@ -1175,4 +1181,5 @@ section {
 .footer a.footer-name:hover {
     color: #ff4d4d;
 }
+
 
