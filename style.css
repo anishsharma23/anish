@@ -846,7 +846,6 @@ section {
 
 .social-link:hover {
   color: var(--secondary-color);
-  text-shadow: 0 0 5px var(--secondary-color);
 }
 
 .contact-form {
@@ -1176,3 +1175,4 @@ section {
 .footer a.footer-name:hover {
     color: #ff4d4d;
 }
+
