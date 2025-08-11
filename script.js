@@ -281,3 +281,9 @@ document.getElementById("contactForm").addEventListener("submit", function(e) {
 });
 
 document.getElementById("currentYear").textContent = new Date().getFullYear();
+ // Also prevent selection programmatically (fallback)
+  document.addEventListener('selectstart', e => e.preventDefault());
+
+  // Optional: prevent long press context menu on mobile
+  document.addEventListener('contextmenu', e => e.preventDefault());
+
