@@ -63,26 +63,31 @@ window.addEventListener("scroll", () => {
 
 // Animated counters for stats
 function animateCounters() {
-  const counters = document.querySelectorAll(".stat-number")
+  const counters = document.querySelectorAll(".stat-number");
 
   counters.forEach((counter) => {
-    const target = Number.parseInt(counter.getAttribute("data-target"))
-    const increment = target / 100
-    let current = 0
+    const target = Number.parseInt(counter.getAttribute("data-target"));
+    const increment = target / 100;
+    let current = 0;
 
     const updateCounter = () => {
       if (current < target) {
-        current += increment
-        counter.textContent = Math.ceil(current)
-        setTimeout(updateCounter, 20)
+        current += increment;
+        counter.textContent = Math.ceil(current);
+        setTimeout(updateCounter, 20);
       } else {
-        counter.textContent = target
+        if (counter.id === "projects-count") {
+          counter.textContent = target + "+";
+        } else {
+          counter.textContent = target;
+        }
       }
-    }
+    };
 
-    updateCounter()
-  })
+    updateCounter();
+  });
 }
+
 
 // Skill bars animation
 function animateSkillBars() {
@@ -234,3 +239,45 @@ document.querySelector(".logo").addEventListener("mouseenter", function () {
 document.querySelector(".logo").addEventListener("mouseleave", function () {
   this.querySelector(".logo-text").style.animation = "none"
 })
+
+function showToast(message, isError = false) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.classList.toggle("error", isError);
+    toast.classList.add("show");
+
+    // Hide after 4 seconds
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 4000);
+}
+
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // Prevent redirect
+
+    const form = e.target;
+    const formData = new FormData(form);
+    const submitBtn = form.querySelector("button");
+
+    submitBtn.textContent = "SENDING...";
+    submitBtn.disabled = true;
+
+    fetch("https://formsubmit.co/ajax/anishgrdh@gmail.com", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        showToast("✅ Message sent successfully!");
+        form.reset();
+    })
+    .catch(error => {
+        showToast("❌ Error sending message. Try again.", true);
+    })
+    .finally(() => {
+        submitBtn.textContent = "SEND MESSAGE";
+        submitBtn.disabled = false;
+    });
+});
+
+document.getElementById("currentYear").textContent = new Date().getFullYear();
